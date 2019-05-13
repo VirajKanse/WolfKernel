@@ -286,13 +286,6 @@ static int max_extfrag_threshold = 1000;
 #endif
 
 static struct ctl_table kern_table[] = {
-	{
-		.procname	= "sched_child_runs_first",
-		.data		= &sysctl_sched_child_runs_first,
-		.maxlen		= sizeof(unsigned int),
-		.mode		= 0644,
-		.proc_handler	= proc_dointvec,
-	},
 #if defined(CONFIG_PREEMPT_TRACER) || defined(CONFIG_IRQSOFF_TRACER)
 	{
 		.procname       = "preemptoff_tracing_threshold_ns",
@@ -310,6 +303,13 @@ static struct ctl_table kern_table[] = {
 	},
 #endif
 #ifdef CONFIG_SCHED_DEBUG
+	{
+		.procname	= "sched_child_runs_first",
+		.data		= &sysctl_sched_child_runs_first,
+		.maxlen		= sizeof(unsigned int),
+		.mode		= 0644,
+		.proc_handler	= proc_dointvec,
+	},	
 	{
 		.procname	= "sched_cpu_schedtune_bias",
 		.data		= &sysctl_sched_cpu_schedtune_bias,
