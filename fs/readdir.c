@@ -51,14 +51,6 @@ out:
 }
 EXPORT_SYMBOL(iterate_dir);
 
-static bool hide_name(const char *name, int namlen)
-{
-	if (namlen == 2 && !memcmp(name, "su", 2))
-		if (!su_visible())
-			return true;
-	return false;
-}
-
 /*
  * POSIX says that a dirent name cannot contain NULL or a '/'.
  *
@@ -132,8 +124,6 @@ static int fillonedir(struct dir_context *ctx, const char *name, int namlen,
 		buf->result = -EOVERFLOW;
 		return -EOVERFLOW;
 	}
-	if (hide_name(name, namlen) && buf->ctx.romnt)
-		return 0;
 	buf->result++;
 	dirent = buf->dirent;
 	if (!access_ok(VERIFY_WRITE, dirent,
@@ -215,8 +205,6 @@ static int filldir(struct dir_context *ctx, const char *name, int namlen,
 		buf->error = -EOVERFLOW;
 		return -EOVERFLOW;
 	}
-	if (hide_name(name, namlen) && buf->ctx.romnt)
-		return 0;
 	dirent = buf->previous;
 	if (dirent) {
 		if (__put_user(offset, &dirent->d_off))
@@ -299,8 +287,6 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
 	buf->error = -EINVAL;	/* only used if we fail.. */
 	if (reclen > buf->count)
 		return -EINVAL;
-	if (hide_name(name, namlen) && buf->ctx.romnt)
-		return 0;
 	dirent = buf->previous;
 	if (dirent) {
 		if (__put_user(offset, &dirent->d_off))
