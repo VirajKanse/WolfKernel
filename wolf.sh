@@ -40,7 +40,7 @@ mkdir -p ${KERNELDIR}/files
 
 export SRCDIR="${KERNELDIR}";
 export OUTDIR="${KERNELDIR}/out";
-export ANYKERNEL="${KERNELDIR}/AnyKernel2/";
+export ANYKERNEL="${KERNELDIR}/AnyKernel3/";
 export AROMA="${KERNELDIR}/aroma/";
 export ARCH="arm64";
 export SUBARCH="arm64";
