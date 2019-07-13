@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export TZ="Asia/Kolkata";
+export TZ="UTC";
 
 # Kernel compiling script
 
