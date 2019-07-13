@@ -61,7 +61,6 @@ export MAKE_TYPE="Treble"
 
 if [[ -z "${JOBS}" ]]; then
     export JOBS="$(nproc --all)";
-#    export JOBS=64;
 fi
 
 export MAKE="make O=${OUTDIR}";
@@ -100,9 +99,8 @@ if [[ "$@" =~ "clean" ]]; then
     ${MAKE} clean
 fi
 
-# curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendSticker -d sticker="CAADBQADFgADx8M3D8ZwwIWZRWcwAg"  -d chat_id=$CHAT_ID
 curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="#Awoo 
-Build Scheduled for $KERNELNAME Kernel (Treble-65Hz)" -d chat_id=$CHAT_ID
+Build Scheduled for $KERNELNAME Kernel (Treble)" -d chat_id=$CHAT_ID
 ${MAKE} $DEFCONFIG;
 START=$(date +"%s");
 echo -e "Using ${JOBS} threads to compile"
@@ -139,10 +137,7 @@ if [ -f "$FINAL_ZIP" ];
 then
 echo -e "$ZIPNAME zip can be found at $FINAL_ZIP";
 if [[ ${success} == true ]]; then
-#    echo -e "Uploading ${ZIPNAME} to https://transfer.sh/";
-#    transfer "${FINAL_ZIP}";
     echo -e "UPLOAD SUCCESSFUL";
-    echo -e "Please push the build to AFH Manually";
 
 message="Wolf Kernel - Treble Version."
 compatible="AOSP PIE/OREO - Treble ONLY"
@@ -157,12 +152,10 @@ curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="
 ♔♔♔♔♔♔♔BUILD-DETAILS♔♔♔♔♔♔♔
 🖋️ Author     : vvrRockStar
 🛠️ Make-Type  : $MAKE_TYPE
-🗒️ Buld-Type  : 65Hz
+🗒️ Buld-Type  : 60Hz
 ⌚ Build-Time : $time
 🗒️ Zip-Name   : $ZIPNAME
 "  -d chat_id="585730571"
-# curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendSticker -d sticker="CAADBQADFQADIIRIEhVlVOIt6EkuAgc"  -d chat_id=$CHAT_ID
-# curl -F document=@$url caption="Latest Build." https://api.telegram.org/bot$BOT_API_KEY/sendDocument -d chat_id=$CHAT_ID
 
 
 
