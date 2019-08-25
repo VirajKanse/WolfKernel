@@ -1,0 +1,11 @@
+kind: pipeline
+name: Wolf Kernel CI
+
+steps:
+- name: test
+  image: ubuntu:rolling
+  environment:
+    BOT_API_KEY:
+      from_secret: API_KEY
+  commands:
+  - bash ./setup.sh
