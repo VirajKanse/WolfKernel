@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/quantummech2000/wolfkernel-2/branches/stablev2/badge.svg)](https://semaphoreci.com/quantummech2000/wolfkernel-2)        
+        
         Linux kernel release 4.x <http://kernel.org/>
 
 These are the release notes for Linux version 4.  Read them carefully,
