@@ -129,6 +129,12 @@ struct vhost_dev {
 	struct task_struct *worker;
 	int weight;
 	int byte_weight;
+	struct vhost_umem *umem;
+	struct vhost_umem *iotlb;
+	spinlock_t iotlb_lock;
+	struct list_head read_list;
+	struct list_head pending_list;
+	wait_queue_head_t wait;
 };
 
 bool vhost_exceeds_weight(struct vhost_virtqueue *vq, int pkts, int total_len);
