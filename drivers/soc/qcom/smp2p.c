@@ -1601,8 +1601,7 @@ static void smp2p_send_interrupt(int remote_pid)
 		wmb();
 		writel_relaxed(smp2p_int_cfgs[remote_pid].out_int_mask,
 			smp2p_int_cfgs[remote_pid].out_int_ptr);
-		writel_relaxed(0,
-			smp2p_int_cfgs[remote_pid].out_int_ptr);
+#ifdef CONFIG_MSM_SMP2P_TEST
 	} else {
 		smp2p_remote_mock_rx_interrupt();
 #endif
