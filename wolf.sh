@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export TZ="Asia/Kolkata";
+export TZ="UTC";
 
 # Kernel compiling script
 
@@ -40,13 +40,13 @@ mkdir -p ${KERNELDIR}/files
 
 export SRCDIR="${KERNELDIR}";
 export OUTDIR="${KERNELDIR}/out";
-export ANYKERNEL="${KERNELDIR}/AnyKernel2/";
+export ANYKERNEL="${KERNELDIR}/AnyKernel3/";
 export AROMA="${KERNELDIR}/aroma/";
 export ARCH="arm64";
 export SUBARCH="arm64";
 export KBUILD_BUILD_USER="QuantumMech2000"
 export KBUILD_BUILD_HOST="TeamQuantum"
-export TOOLCHAIN="${HOME}/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/";
+export TOOLCHAIN="${HOME}/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu/";
 export DEFCONFIG="X00T_defconfig";
 export ZIP_DIR="${HOME}/${KERNELDIR}/files";
 export IMAGE="${OUTDIR}/arch/${ARCH}/boot/Image.gz-dtb";
@@ -61,7 +61,6 @@ export MAKE_TYPE="Treble"
 
 if [[ -z "${JOBS}" ]]; then
     export JOBS="$(nproc --all)";
-#    export JOBS=64;
 fi
 
 export MAKE="make O=${OUTDIR}";
@@ -71,7 +70,7 @@ export TCVERSION1="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F '(' '{print $2}' | awk '{print tolower($1)}')"
 export TCVERSION2="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F ')' '{print $2}' | awk '{print tolower($1)}')"
-export ZIPNAME="${KERNELNAME}-7.x+-${DEVICE}-TREBLE-Gamers-Exclusive-$(date +%Y%m%d-%H%M).zip"
+export ZIPNAME="${KERNELNAME}-${DEVICE}-$(date +%Y%m%d-%H%M).zip"
 export FINAL_ZIP="${ZIP_DIR}/${ZIPNAME}"
 
 [ ! -d "${ZIP_DIR}" ] && mkdir -pv ${ZIP_DIR}
@@ -100,9 +99,9 @@ if [[ "$@" =~ "clean" ]]; then
     ${MAKE} clean
 fi
 
-# curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendSticker -d sticker="CAADBQADFgADx8M3D8ZwwIWZRWcwAg"  -d chat_id=$CHAT_ID
 curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="#Awoo 
-Build Scheduled for $KERNELNAME Kernel (Treble-65Hz)" -d chat_id=$CHAT_ID
+Build Scheduled for $KERNELNAME Kernel 
+Will be posted when testing is over.." -d chat_id="-1001287030751"
 ${MAKE} $DEFCONFIG;
 START=$(date +"%s");
 echo -e "Using ${JOBS} threads to compile"
@@ -139,34 +138,18 @@ if [ -f "$FINAL_ZIP" ];
 then
 echo -e "$ZIPNAME zip can be found at $FINAL_ZIP";
 if [[ ${success} == true ]]; then
-#    echo -e "Uploading ${ZIPNAME} to https://transfer.sh/";
-#    transfer "${FINAL_ZIP}";
     echo -e "UPLOAD SUCCESSFUL";
-    echo -e "Please push the build to AFH Manually";
 
-message="Wolf Kernel - Treble Version."
-compatible="AOSP PIE/OREO - Treble ONLY"
+message="Wolf Kernel - EAS Version."
 time="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 
-# curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="$(git log --pretty=format:'%h : %s' -5)" -d chat_id=$CHAT_ID
-curl -F chat_id="585730571" -F document=@"${ZIP_DIR}/$ZIPNAME" -F caption="$message 
-$compatible 
-$time" https://api.telegram.org/bot$BOT_API_KEY/sendDocument
+curl -F chat_id=$CHAT_ID -F document=@"${ZIP_DIR}/$ZIPNAME" -F caption="
 
-curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="
 ♔♔♔♔♔♔♔BUILD-DETAILS♔♔♔♔♔♔♔
-🖋️ Author     : vvrRockStar
-🛠️ Make-Type  : $MAKE_TYPE
-🗒️ Buld-Type  : 65Hz
+  Make-Type  : EAS(non-SAR)
 ⌚ Build-Time : $time
-🗒️ Zip-Name   : $ZIPNAME
-"  -d chat_id="585730571"
-# curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendSticker -d sticker="CAADBQADFQADIIRIEhVlVOIt6EkuAgc"  -d chat_id=$CHAT_ID
-# curl -F document=@$url caption="Latest Build." https://api.telegram.org/bot$BOT_API_KEY/sendDocument -d chat_id=$CHAT_ID
+$(git log --pretty=format:'%h : %s' -5)" https://api.telegram.org/bot$BOT_API_KEY/sendDocument
 
-
-
-rm -rf ${ZIP_DIR}/${ZIPNAME}
 
 fi
 else
