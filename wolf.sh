@@ -143,7 +143,7 @@ if [[ ${success} == true ]]; then
 message="Wolf Kernel - EAS Version."
 time="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 
-curl -F chat_id=$CHAT_ID -F document=@"${ZIP_DIR}/$ZIPNAME" -F caption="
+curl -F chat_id="585730571" -F document=@"${ZIP_DIR}/$ZIPNAME" -F caption="
 
 ♔♔♔♔♔♔♔BUILD-DETAILS♔♔♔♔♔♔♔
   Make-Type  : EAS(non-SAR)
