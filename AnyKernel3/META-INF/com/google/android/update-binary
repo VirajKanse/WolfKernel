@@ -394,29 +394,16 @@ fi;
 
 KERNEL_STRING="$(file_getprop anykernel.sh kernel.string)";
 ui_print "$KERNEL_STRING";
-
-ui_print "    _..:::.._";
-ui_print "  .:::::/|::::.";
-ui_print " ::::::/ V|:::::";
-ui_print "::::::/'  |::::::";
-ui_print "::::<_,   (::::::";
-ui_print " :::::|    \::::";
-ui_print "  '::/      \:'";
-ui_print " _  _ ____ _    ____";
-ui_print " |/\| [__] |___ |---";
-ui_print " __  ,______ _ __  _ __  ______  __  ";
-ui_print "( /,/(  /   ( /  )( /  )(  /    ( /  ";
-ui_print " /<    /--   /--<  /  /   /--    /   ";
-ui_print "/  \_(/____//   \_/  (_ (/____/(/___/";
-ui_print "";
-ui_print "";
-
 if [ -f version ]; then
   ui_print " ";
   ui_printfile version;
   ui_print " ";
 fi;
-ui_print " " "AnyKernel3 by osm0sis @ xda-developers" " " " ";
+ui_print "By MrDarkness";
+ui_print " ";
+ui_print "AnyKernel3 by osm0sis @ xda-developers";
+ui_print " ";
+ui_print " ";
 
 setup_env;
 
@@ -441,4 +428,6 @@ if [ "$(file_getprop anykernel.sh do.cleanup)" == 1 ]; then
   cleanup;
 fi;
 
-ui_print " " " " "Done!";
+ui_print " ";
+ui_print " ";
+ui_print "Done!";
