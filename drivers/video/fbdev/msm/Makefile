@@ -68,7 +68,6 @@ obj-$(CONFIG_COMPAT) += mdss_compat_utils.o
 
 obj-$(CONFIG_FB_MSM_MDSS_KCAL_CTRL) += mdss_mdp_kcal_ctrl.o
 
-obj-$(CONFIG_FB_MSM_MDSS) += mdss_livedisplay.o
 
 subdir-ccflags-y += \
 	-Wno-header-guard \
