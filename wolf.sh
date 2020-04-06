@@ -80,7 +80,7 @@ cd "${SRCDIR}";
 rm -fv ${IMAGE};
 
 MAKE_STATEMENT=make
- 
+#
 # Menuconfig configuration
 # ================
 # If -no-menuconfig flag is present we will skip the kernel configuration step.
